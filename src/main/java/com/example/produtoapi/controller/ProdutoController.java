@@ -25,5 +25,12 @@ public class ProdutoController {
     }
 
 
+    @DeleteMapping("/{id}")
+    public void deletarProduto(@PathVariable Long id) {
+        produtoRepository.deleteById(id);
+    }
+
+
+
 
 }
