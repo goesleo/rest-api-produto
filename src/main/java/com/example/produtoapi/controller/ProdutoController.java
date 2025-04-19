@@ -24,13 +24,21 @@ public class ProdutoController {
         return produtoRepository.findAll();
     }
 
+    @PutMapping("/{id}")
+    public Produto atualizarProduto(@PathVariable Long id, @RequestBody Produto produtoAtualizado) {
+        return produtoRepository.findById(id)
+                .map(produto -> {
+                    produto.setNome(produtoAtualizado.getNome());
+                    produto.setPreco(produtoAtualizado.getPreco());
+                    return produtoRepository.save(produto);
+                })
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado com o id: " + id));
+    }
+
 
     @DeleteMapping("/{id}")
     public void deletarProduto(@PathVariable Long id) {
         produtoRepository.deleteById(id);
     }
-
-
-
 
 }
